@@ -1,0 +1,32 @@
+# Private league data and large artifacts never go in git (AGENT_RULES §4, §8)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.pt
+*.pth
+*.onnx
+*.engine
+*.pkl
+data/
+datasets/
+videos/
+clips/
+input_videos/
+output_videos/
+runs/
+models/weights/
+stubs/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python / tooling
+__pycache__/
+*.py[cod]
+.venv/
+.ipynb_checkpoints/
+.DS_Store
