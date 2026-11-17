@@ -3,7 +3,7 @@
 **Status:** Draft baseline plan  
 **Product owner:** League operator  
 **Primary implementation approach:** AI-assisted development with human review and measured model improvement  
-**Last updated:** 2026-11-13
+**Last updated:** 2026-11-17 (DEC-005/006/007: clip-based MVP, free compute, standalone with Recess-shaped contract)
 
 ## 1. Product vision
 
@@ -173,7 +173,7 @@ Tasks:
 - 1.7 Evaluate separately by gym and identify failure modes.
 
 Exit gate:
-- Full-game or representative long-duration processing works reproducibly.
+- Representative clips from each gym process reproducibly, with frames streamed rather than loaded into memory (DEC-005). Full-game processing (consecutive clips) moves to Phase 6.
 - Annotated output is visually inspected.
 - Detection/tracking metrics are measured on labelled samples.
 - Limitations and next bottleneck are documented.
@@ -348,6 +348,7 @@ Do not lock numeric targets until the baseline reveals what is achievable and wh
 | Human corrections are noisy | Label QA, adjudication, dataset versions |
 | Processing costs rise | Benchmark per-game costs before scale; approval for paid resources |
 | Callback retries duplicate stats | Idempotency keys and event deduplication |
+| Free GPU sessions (Colab/Kaggle) disconnect or are unavailable | Checkpoint to Drive, small resumable jobs, Kaggle as backup (DEC-006) |
 
 ## 11. Change control
 
