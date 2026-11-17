@@ -58,7 +58,7 @@ Only add tasks here; do not implement them until they become the single current 
 | Task | Status | Commit | Evidence |
 |---|---|---|---|
 | Project documentation initialized | Imported | `24d6dfa` | Documentation package committed as received |
-| 0.1 Starting state | READY FOR OWNER REVIEW | branch `task/0.1-starting-state` | `docs/STARTING_STATE.md` |
+| 0.1 Starting state | Accepted (owner, 2026-11-17) | `09bc65e` | `docs/STARTING_STATE.md` |
 
 ## Required update at every task end
 
