@@ -87,3 +87,14 @@ Record decisions that materially affect architecture, data, model selection, cos
 - **Consequences/migration:** JSON Schemas for the manifest and events are defined in a later approved task. Stable `eventId`s make later imports idempotent.
 - **Evidence/links:** `docs/STARTING_STATE.md` §4, §7
 - **Approver:** Owner (2026-11-17)
+
+### DEC-008 — Google Colab is the only runtime; code reaches it through a private GitHub repo
+- **Date:** 2026-11-18
+- **Status:** Accepted
+- **Context/problem:** Task 0.2 needed Python 3.12, ffmpeg and dev tools. On this Mac (macOS 13.5), `brew install uv ffmpeg` had no prebuilt packages and began compiling LLVM from source (multi-hour), so it was stopped. The official uv install script was blocked by the agent's permission policy.
+- **Options considered:** (a) compile with Homebrew overnight; (b) upgrade macOS to get prebuilt packages; (c) the owner installs uv locally; (d) run everything in Colab.
+- **Decision:** (d). Colab provides Python 3.12, ffmpeg, ffprobe and a free T4 GPU. All checks (format, lint, types, tests) and all video/GPU work run there through `notebooks/00_setup_check.ipynb`. Code is synced through a **private** GitHub repo, cloned with a read-only fine-grained token stored in Colab Secrets.
+- **Reasoning/trade-offs:** $0 and no local installs. Each check needs a Colab session (slower iteration than local), and the agent can't execute Colab itself, so the owner runs the notebook and reports output as evidence.
+- **Consequences/migration:** Supersedes the "M2 Mac for development and small `mps` inference" part of DEC-006; the Mac only edits files and runs git. Only code and docs go to GitHub (never video, weights or data).
+- **Evidence/links:** `docs/PROGRESS.md` task 0.2
+- **Approver:** Owner (2026-11-18)

@@ -146,3 +146,7 @@ The names mirror `Game.homeTeamId`, `TeamEntry.roster[].userId` / `jerseyNumber`
 - **DEC-005:** clip-based MVP. Accepted.
 - **DEC-006:** free compute (Colab/Kaggle) and local labelling. Accepted.
 - **DEC-007:** standalone first with a Recess-shaped contract. Accepted.
+
+---
+
+**Note added during task 0.2 (2026-11-18):** the attempted `brew install uv ffmpeg` (stopped; see DEC-008) left Homebrew packages installed on this Mac before it reached LLVM. They include `python@3.15` (now the default `python3` at `/opt/homebrew/bin/python3`, 3.15.2), cmake, ninja, libgit2 and compression/sqlite libraries, plus an empty, broken `llvm` keg. The project doesn't use any of them. Removing them is the owner's call.

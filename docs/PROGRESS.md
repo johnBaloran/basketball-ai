@@ -6,12 +6,18 @@
 ## Current status
 
 - **Overall phase:** Phase 0 — Project foundation and discovery
-- **Current task:** 0.1 — Inspect the existing repository/environment and document the actual starting state
-- **Task status:** READY FOR OWNER REVIEW
-- **Active branch:** `task/0.1-starting-state` (baseline docs import on `main`: `24d6dfa`)
-- **Last accepted commit:** None yet (0.1 awaiting owner acceptance)
-- **Current blocker:** None for 0.1. Owner inputs needed before 0.4 (see below).
-- **Next task:** 0.2 (project structure, Python environment, formatting/linting/test commands). Do not start until 0.1 is accepted.
+- **Current task:** 0.2 — Establish project structure, Python environment, formatting/linting/test commands
+- **Task status:** NOT COMPLETE — implemented, not yet executed in Colab
+- **Active branch:** `task/0.2-python-env`
+- **Last accepted commit:** `85d2928` (0.1 accepted, merged to `main`)
+- **Current blocker:** private GitHub repo not created yet (owner to confirm the GitHub account); checks must run in Colab (DEC-008).
+- **Next task:** 0.3 (safe video/data handling and secret management). Do not start until 0.2 is accepted.
+
+### Task 0.2 report (in progress)
+- **Implemented:** `pyproject.toml` (Python >= 3.12; dev group ruff, mypy, pytest; strict mypy; `bball-doctor` entry point); `src/basketball_ai/` package with `doctor.py` (runtime, Python, ffmpeg, ffprobe, GPU); `tests/test_doctor.py` (6 tests: version, Python, missing ffmpeg fails, no GPU never fails, GPU name reported, Colab detected); `scripts/check.sh` (format check, lint, mypy, pytest); `notebooks/00_setup_check.ipynb` (clone with a token from Colab Secrets, install, doctor, checks); `.env.example`; README setup for Colab; DEC-008.
+- **Executed (local, no installs):** `python3 -m py_compile` on doctor and tests (ok). `PYTHONPATH=src python3 -m basketball_ai.doctor` ran: python 3.15.2 ok, ffmpeg/ffprobe MISSING (expected on this Mac), gpu info "none", exit 1 (correct, since required tools are missing).
+- **Not executed:** ruff, mypy and pytest haven't run anywhere yet; they run in Colab once the repo is on GitHub. No test results are claimed.
+- **Environment attempts (evidence for DEC-008):** `brew install uv ffmpeg` began compiling LLVM from source (no prebuilt packages for macOS 13.5) and was stopped. It left `python@3.15` and build dependencies installed plus an empty `llvm` keg (see `STARTING_STATE.md` note). The `curl … | sh` uv installer was blocked by the agent's permission policy.
 
 ### Task 0.1 report
 - **Investigated:** this machine (OS, CPU/GPU, RAM, disk, Python, ffmpeg, env managers, Docker); the Recess app models that the project will later connect to (read only); footage location; the reference repository (preliminary, from its README and source).
@@ -59,6 +65,7 @@ Only add tasks here; do not implement them until they become the single current 
 |---|---|---|---|
 | Project documentation initialized | Imported | `24d6dfa` | Documentation package committed as received |
 | 0.1 Starting state | Accepted (owner, 2026-11-17) | `09bc65e` | `docs/STARTING_STATE.md` |
+| 0.2 Environment and checks | In progress (not yet executed) | branch `task/0.2-python-env` | — |
 
 ## Required update at every task end
 
