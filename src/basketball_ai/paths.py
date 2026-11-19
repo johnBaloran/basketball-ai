@@ -30,7 +30,9 @@ def data_dir(env: dict[str, str] | None = None, repo_root: Path = REPO_ROOT) -> 
     path = Path(value).expanduser().resolve()
     root = repo_root.resolve()
     if path == root or root in path.parents:
-        raise DataDirError(f"{ENV_VAR}={path} is inside the git repo ({root}); private data must live outside it.")
+        raise DataDirError(
+            f"{ENV_VAR}={path} is inside the git repo ({root}); private data must live outside it."
+        )
     return path
 
 

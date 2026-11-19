@@ -9,7 +9,9 @@ from basketball_ai.privacy_guard import check_file, scan
 FAKE_GH_TOKEN = "ghp_" + "a" * 36
 
 
-@pytest.mark.parametrize("path", ["game.mp4", "clips/c1.MOV", "frame_0001.jpg", "best.pt", "roster.csv", "x.tar.gz"])
+@pytest.mark.parametrize(
+    "path", ["game.mp4", "clips/c1.MOV", "frame_0001.jpg", "best.pt", "roster.csv", "x.tar.gz"]
+)
 def test_media_weights_and_data_files_are_blocked(path: str) -> None:
     assert check_file(path, b"x")
 
@@ -41,7 +43,9 @@ def test_secrets_are_blocked(text: str, kind: str) -> None:
 
 def test_notebook_outputs_are_blocked() -> None:
     clean = {"cells": [{"cell_type": "code", "source": "1", "outputs": []}]}
-    dirty = {"cells": [{"cell_type": "code", "source": "1", "outputs": [{"output_type": "stream", "text": "x"}]}]}
+    dirty = {
+        "cells": [{"cell_type": "code", "source": "1", "outputs": [{"output_type": "stream", "text": "x"}]}]
+    }
     assert check_file("n.ipynb", json.dumps(clean).encode()) == []
     assert "saved outputs" in check_file("n.ipynb", json.dumps(dirty).encode())[0].reason
 

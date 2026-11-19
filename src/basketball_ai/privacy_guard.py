@@ -32,11 +32,17 @@ BLOCKED_SUFFIXES = frozenset(
 )  # fmt: skip
 
 SECRET_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
-    ("GitHub token", re.compile(r"\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{30,}|\bgithub_pat_[A-Za-z0-9_]{40,}")),
+    (
+        "GitHub token",
+        re.compile(r"\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{30,}|\bgithub_pat_[A-Za-z0-9_]{40,}"),
+    ),
     ("Google API key", re.compile(r"\bAIza[0-9A-Za-z_\-]{35}\b")),
     ("AWS access key", re.compile(r"\bAKIA[0-9A-Z]{16}\b")),
     ("Stripe key", re.compile(r"\b[sr]k_(?:live|test)_[0-9A-Za-z]{16,}")),
-    ("Database URL with password", re.compile(r"\b(?:mongodb(?:\+srv)?|postgres(?:ql)?|mysql)://[^\s:/@]+:[^\s@]+@")),
+    (
+        "Database URL with password",
+        re.compile(r"\b(?:mongodb(?:\+srv)?|postgres(?:ql)?|mysql)://[^\s:/@]+:[^\s@]+@"),
+    ),
     ("Private key", re.compile(r"-----BEGIN (?:[A-Z]+ )?PRIVATE KEY-----")),
     ("Kaggle key", re.compile(r'"key"\s*:\s*"[0-9a-f]{32}"')),
 )
