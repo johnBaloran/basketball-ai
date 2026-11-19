@@ -98,3 +98,13 @@ Record decisions that materially affect architecture, data, model selection, cos
 - **Consequences/migration:** Supersedes the "M2 Mac for development and small `mps` inference" part of DEC-006; the Mac only edits files and runs git. Only code and docs go to GitHub (never video, weights or data).
 - **Evidence/links:** `docs/PROGRESS.md` task 0.2
 - **Approver:** Owner (2026-11-18)
+
+### DEC-009 — Public repository during development; checks run in GitHub Actions
+- **Date:** 2026-11-19
+- **Status:** Accepted
+- **Context/problem:** Colab can't be triggered by the agent, so every check needed the owner to click Run all and paste output.
+- **Options considered:** keep the repo private (2,000 free Actions minutes a month, Colab needs a token); make it public during development.
+- **Decision:** Public during development (owner decision); make it private again later. Format, lint, type checks and tests run automatically in GitHub Actions on every push (`.github/workflows/checks.yml`), so the agent reads results with `gh` and nothing has to be clicked. Colab and Kaggle stay for GPU and video work.
+- **Reasoning/trade-offs:** Zero manual steps for code checks; Colab can open the repo without a token. Everything committed is world-readable, and making it private later doesn't recall copies already made.
+- **Consequences/migration:** **Nothing private is ever committed**: no video, frames, roster data, player names or personal data, which `.gitignore` already blocks for media and data folders. Commits use the GitHub noreply email (history rewritten 2026-11-19 so the personal email isn't exposed).
+- **Approver:** Owner (2026-11-19)

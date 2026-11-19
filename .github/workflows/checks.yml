@@ -1,0 +1,30 @@
+name: checks
+
+# Runs every check a task must pass (AGENT_RULES §4) on each push and pull request.
+# CPU only; GPU and video work run in Colab/Kaggle (DEC-008).
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ffmpeg
+        run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
+      - name: Install project and dev tools
+        run: |
+          python -m pip install -q --upgrade pip
+          pip install -q -e . --group dev
+      - name: Environment check
+        run: bball-doctor
+      - name: Format, lint, types, tests
+        run: bash scripts/check.sh

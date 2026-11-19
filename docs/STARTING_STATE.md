@@ -11,7 +11,7 @@
 
 | Item | Finding | Evidence |
 |---|---|---|
-| Project repo | New standalone repo at `~/Desktop/riseup-projects/basketball-ai` (DEC-003) | `git init`, baseline commit `24d6dfa` with the documentation package as received |
+| Project repo | New standalone repo at `~/Desktop/riseup-projects/basketball-ai` (DEC-003) | `git init`, baseline commit `8e7f595` with the documentation package as received |
 | Remote | None. Nothing is pushed anywhere. | `git remote -v` is empty |
 | Code | None yet. The repo holds only documentation and `.gitignore`. | `git ls-files` |
 | Original docs | Still present, untracked, at `recess/basketball-ai-project-docs/`. Left in place pending owner decision. | `git status` in recess shows `?? basketball-ai-project-docs/` |

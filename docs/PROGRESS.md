@@ -9,7 +9,7 @@
 - **Current task:** 0.2 — Establish project structure, Python environment, formatting/linting/test commands
 - **Task status:** NOT COMPLETE — implemented, not yet executed in Colab
 - **Active branch:** `task/0.2-python-env`
-- **Last accepted commit:** `85d2928` (0.1 accepted, merged to `main`)
+- **Last accepted commit:** `f431d36` (0.1 accepted, merged to `main`)
 - **Current blocker:** private GitHub repo not created yet (owner to confirm the GitHub account); checks must run in Colab (DEC-008).
 - **Next task:** 0.3 (safe video/data handling and secret management). Do not start until 0.2 is accepted.
 
@@ -63,8 +63,8 @@ Only add tasks here; do not implement them until they become the single current 
 
 | Task | Status | Commit | Evidence |
 |---|---|---|---|
-| Project documentation initialized | Imported | `24d6dfa` | Documentation package committed as received |
-| 0.1 Starting state | Accepted (owner, 2026-11-17) | `09bc65e` | `docs/STARTING_STATE.md` |
+| Project documentation initialized | Imported | `8e7f595` | Documentation package committed as received |
+| 0.1 Starting state | Accepted (owner, 2026-11-17) | `42609ef` | `docs/STARTING_STATE.md` |
 | 0.2 Environment and checks | In progress (not yet executed) | branch `task/0.2-python-env` | — |
 
 ## Required update at every task end
