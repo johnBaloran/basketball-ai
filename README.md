@@ -27,6 +27,10 @@ If code and documentation disagree, do not silently choose one. Report the confl
 
 The project begins in discovery/baseline validation. No model accuracy, performance, or production readiness is assumed until measured on representative BallerTV footage.
 
+## Checks run automatically
+
+Every push runs format, lint, strict type checks and tests in GitHub Actions (`.github/workflows/checks.yml`). See the Actions tab.
+
 ## Setup: Google Colab (the only runtime, DEC-008)
 
 Everything runs in free Google Colab: Python 3.12, ffmpeg, ffprobe and a T4 GPU are provided. Nothing is installed on the development Mac; it only edits files and runs git.

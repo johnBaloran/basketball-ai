@@ -7,16 +7,19 @@
 
 - **Overall phase:** Phase 0 — Project foundation and discovery
 - **Current task:** 0.2 — Establish project structure, Python environment, formatting/linting/test commands
-- **Task status:** NOT COMPLETE — implemented, not yet executed in Colab
+- **Task status:** READY FOR OWNER REVIEW
 - **Active branch:** `task/0.2-python-env`
 - **Last accepted commit:** `f431d36` (0.1 accepted, merged to `main`)
-- **Current blocker:** private GitHub repo not created yet (owner to confirm the GitHub account); checks must run in Colab (DEC-008).
+- **Current blocker:** None. Repo: https://github.com/johnBaloran/basketball-ai (public during development, DEC-009).
 - **Next task:** 0.3 (safe video/data handling and secret management). Do not start until 0.2 is accepted.
 
-### Task 0.2 report (in progress)
+### Task 0.2 report
 - **Implemented:** `pyproject.toml` (Python >= 3.12; dev group ruff, mypy, pytest; strict mypy; `bball-doctor` entry point); `src/basketball_ai/` package with `doctor.py` (runtime, Python, ffmpeg, ffprobe, GPU); `tests/test_doctor.py` (6 tests: version, Python, missing ffmpeg fails, no GPU never fails, GPU name reported, Colab detected); `scripts/check.sh` (format check, lint, mypy, pytest); `notebooks/00_setup_check.ipynb` (clone with a token from Colab Secrets, install, doctor, checks); `.env.example`; README setup for Colab; DEC-008.
 - **Executed (local, no installs):** `python3 -m py_compile` on doctor and tests (ok). `PYTHONPATH=src python3 -m basketball_ai.doctor` ran: python 3.15.2 ok, ffmpeg/ffprobe MISSING (expected on this Mac), gpu info "none", exit 1 (correct, since required tools are missing).
-- **Not executed:** ruff, mypy and pytest haven't run anywhere yet; they run in Colab once the repo is on GitHub. No test results are claimed.
+- **Executed in GitHub Actions** (run 44612564972 on `task/0.2-python-env`, ubuntu-latest, CPython 3.12.16): `bball-doctor` reported python 3.12.16 ok, ffmpeg 8.0.1 ok, ffprobe 8.0.1 ok, gpu info "none"; `ruff format --check` passed; `ruff check` "All checks passed!"; `mypy` (strict) "Success: no issues found in 3 source files"; `pytest` "6 passed in 0.10s".
+- **Earlier failure, fixed:** run 44612396472 failed `ruff format --check` (2 files: `doctor.py` and the notebook). Fixed in the next commit.
+- **Not executed:** the Colab notebook hasn't been run (it needs a person to click Run all). It's only needed for GPU/video work from Phase 1 on; code checks now run automatically in CI.
+- **Repo:** created private, author email rewritten to the GitHub noreply address (force-pushed with owner approval), then made public (DEC-009).
 - **Environment attempts (evidence for DEC-008):** `brew install uv ffmpeg` began compiling LLVM from source (no prebuilt packages for macOS 13.5) and was stopped. It left `python@3.15` and build dependencies installed plus an empty `llvm` keg (see `STARTING_STATE.md` note). The `curl … | sh` uv installer was blocked by the agent's permission policy.
 
 ### Task 0.1 report
@@ -65,7 +68,7 @@ Only add tasks here; do not implement them until they become the single current 
 |---|---|---|---|
 | Project documentation initialized | Imported | `8e7f595` | Documentation package committed as received |
 | 0.1 Starting state | Accepted (owner, 2026-11-17) | `42609ef` | `docs/STARTING_STATE.md` |
-| 0.2 Environment and checks | In progress (not yet executed) | branch `task/0.2-python-env` | — |
+| 0.2 Environment and checks | READY FOR OWNER REVIEW | branch `task/0.2-python-env` | GitHub Actions run 44612564972 (all checks pass) |
 
 ## Required update at every task end
 
