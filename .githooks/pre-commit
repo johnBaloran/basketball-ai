@@ -1,0 +1,4 @@
+#!/bin/sh
+# Blocks video, frames, weights, data files, notebook outputs and secrets from being committed.
+# Enable once per clone: ./scripts/install-hooks.sh
+exec python3 "$(git rev-parse --show-toplevel)/scripts/privacy_guard.py" --staged

@@ -9,6 +9,15 @@
 *.onnx
 *.engine
 *.pkl
+*.pickle
+*.npy
+*.npz
+*.ckpt
+*.safetensors
+*.h5
+*.zip
+*.tar
+*.tar.gz
 data/
 datasets/
 videos/

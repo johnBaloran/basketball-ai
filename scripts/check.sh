@@ -4,6 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 PY="${PYTHON:-python}"
+"$PY" scripts/privacy_guard.py
 "$PY" -m ruff format --check .
 "$PY" -m ruff check .
 "$PY" -m mypy

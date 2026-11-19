@@ -6,12 +6,25 @@
 ## Current status
 
 - **Overall phase:** Phase 0 — Project foundation and discovery
-- **Current task:** 0.2 — Establish project structure, Python environment, formatting/linting/test commands
-- **Task status:** READY FOR OWNER REVIEW
-- **Active branch:** `task/0.2-python-env`
-- **Last accepted commit:** `f431d36` (0.1 accepted, merged to `main`)
-- **Current blocker:** None. Repo: https://github.com/johnBaloran/basketball-ai (public during development, DEC-009).
-- **Next task:** 0.3 (safe video/data handling and secret management). Do not start until 0.2 is accepted.
+- **Current task:** 0.3 — Establish safe video/data handling and secret management
+- **Task status:** NOT COMPLETE — waiting for CI evidence
+- **Active branch:** `task/0.3-data-handling`
+- **Last accepted commit:** `877f2e4` (0.2 accepted, merged to `main`)
+- **Current blocker:** None.
+- **Next task:** 0.4 (inventory sample videos across gyms). Do not start until 0.3 is accepted. 0.4 needs owner inputs (YouTube channel and videos, Drive folder).
+
+### Task 0.3 report
+- **Implemented:**
+  - `src/basketball_ai/privacy_guard.py`: standard library only and Python 3.9-compatible. It blocks media, frames, weights, data/tabular files, files over 1 MB, notebooks with outputs, and secret patterns, with an explicit `.private-data-allow` list for exceptions.
+  - `scripts/privacy_guard.py` wrapper, `.githooks/pre-commit`, `scripts/install-hooks.sh`.
+  - The guard was added to `scripts/check.sh`, so CI runs it on all tracked files.
+  - `src/basketball_ai/paths.py`: `BBALL_DATA_DIR`, which refuses paths inside the repo, plus the standard subfolders.
+  - Tests in `tests/test_privacy_guard.py` and `tests/test_paths.py`.
+  - `docs/DATA_HANDLING.md` (what's private, enforcement, Drive layout, secrets, external services, incident steps); extra `.gitignore` patterns.
+- **Executed locally (no installs):**
+  - `/usr/bin/python3` (3.9) and `python3` (3.15) `scripts/privacy_guard.py`: "privacy guard: ok", exit 0.
+  - Hook enabled (`core.hooksPath=.githooks`). A test commit with a fake `leak.mp4` and a fake GitHub token was **blocked**; output listed both files. Nothing was committed, and the files were removed.
+- **CI:** results recorded after the push (below).
 
 ### Task 0.2 report
 - **Implemented:** `pyproject.toml` (Python >= 3.12; dev group ruff, mypy, pytest; strict mypy; `bball-doctor` entry point); `src/basketball_ai/` package with `doctor.py` (runtime, Python, ffmpeg, ffprobe, GPU); `tests/test_doctor.py` (6 tests: version, Python, missing ffmpeg fails, no GPU never fails, GPU name reported, Colab detected); `scripts/check.sh` (format check, lint, mypy, pytest); `notebooks/00_setup_check.ipynb` (clone with a token from Colab Secrets, install, doctor, checks); `.env.example`; README setup for Colab; DEC-008.
@@ -69,6 +82,7 @@ Only add tasks here; do not implement them until they become the single current 
 | Project documentation initialized | Imported | `8e7f595` | Documentation package committed as received |
 | 0.1 Starting state | Accepted (owner, 2026-11-17) | `42609ef` | `docs/STARTING_STATE.md` |
 | 0.2 Environment and checks | Accepted (owner, 2026-11-19) | merged to `main` | GitHub Actions run 44612564972 (all checks pass) |
+| 0.3 Data handling and secrets | In progress | branch `task/0.3-data-handling` | — |
 
 ## Required update at every task end
 

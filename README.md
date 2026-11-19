@@ -53,4 +53,6 @@ Every session: **Runtime > Change runtime type > T4 GPU**, then **Runtime > Run 
 | `!python -m ruff format .` | Format code |
 | `!python -m pytest` | Tests only |
 
+**After cloning, run `./scripts/install-hooks.sh`** so the pre-commit privacy guard blocks video, frames, data files and secrets (the repo is public; see `docs/DATA_HANDLING.md`).
+
 Private data stays out of git: clips, datasets and model weights live in Google Drive (`BBALL_DATA_DIR`; see `.env.example`). `.gitignore` blocks video, weights and `.env` files.
