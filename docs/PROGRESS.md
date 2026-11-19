@@ -68,7 +68,7 @@ Only add tasks here; do not implement them until they become the single current 
 |---|---|---|---|
 | Project documentation initialized | Imported | `8e7f595` | Documentation package committed as received |
 | 0.1 Starting state | Accepted (owner, 2026-11-17) | `42609ef` | `docs/STARTING_STATE.md` |
-| 0.2 Environment and checks | READY FOR OWNER REVIEW | branch `task/0.2-python-env` | GitHub Actions run 44612564972 (all checks pass) |
+| 0.2 Environment and checks | Accepted (owner, 2026-11-19) | merged to `main` | GitHub Actions run 44612564972 (all checks pass) |
 
 ## Required update at every task end
 
