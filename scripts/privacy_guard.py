@@ -6,6 +6,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from basketball_ai.privacy_guard import main  # noqa: E402
+from basketball_ai.privacy_guard import main
 
 raise SystemExit(main())
