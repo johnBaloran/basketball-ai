@@ -7,7 +7,7 @@
 
 - **Overall phase:** Phase 0 — Project foundation and discovery
 - **Current task:** 0.3 — Establish safe video/data handling and secret management
-- **Task status:** NOT COMPLETE — waiting for CI evidence
+- **Task status:** READY FOR OWNER REVIEW
 - **Active branch:** `task/0.3-data-handling`
 - **Last accepted commit:** `877f2e4` (0.2 accepted, merged to `main`)
 - **Current blocker:** None.
@@ -24,7 +24,10 @@
 - **Executed locally (no installs):**
   - `/usr/bin/python3` (3.9) and `python3` (3.15) `scripts/privacy_guard.py`: "privacy guard: ok", exit 0.
   - Hook enabled (`core.hooksPath=.githooks`). A test commit with a fake `leak.mp4` and a fake GitHub token was **blocked**; output listed both files. Nothing was committed, and the files were removed.
-- **CI:** results recorded after the push (below).
+- **The guard caught its own test file:** the first commit attempt was blocked because the fake samples in `tests/test_privacy_guard.py` matched the database-URL and private-key patterns. The test strings are now built in pieces.
+- **CI (GitHub Actions run 44631288593, CPython 3.12.16):** privacy guard "ok" on all tracked files; `ruff format --check` "22 files already formatted"; `ruff check` "All checks passed!"; `mypy` strict "Success: no issues found in 7 source files"; `pytest` "25 passed in 0.27s".
+- **Earlier CI failures, fixed:** run 44630900663 (3 files needed formatting), run 44631139658 (unused `noqa`). Actions were also updated to checkout@v5 and setup-python@v6 (Node 20 deprecation warning).
+- **Not tested:** the hook on a fresh clone of another machine (it needs only git and python3); the Drive folder itself (created in task 0.4).
 
 ### Task 0.2 report
 - **Implemented:** `pyproject.toml` (Python >= 3.12; dev group ruff, mypy, pytest; strict mypy; `bball-doctor` entry point); `src/basketball_ai/` package with `doctor.py` (runtime, Python, ffmpeg, ffprobe, GPU); `tests/test_doctor.py` (6 tests: version, Python, missing ffmpeg fails, no GPU never fails, GPU name reported, Colab detected); `scripts/check.sh` (format check, lint, mypy, pytest); `notebooks/00_setup_check.ipynb` (clone with a token from Colab Secrets, install, doctor, checks); `.env.example`; README setup for Colab; DEC-008.
@@ -82,7 +85,7 @@ Only add tasks here; do not implement them until they become the single current 
 | Project documentation initialized | Imported | `8e7f595` | Documentation package committed as received |
 | 0.1 Starting state | Accepted (owner, 2026-11-17) | `42609ef` | `docs/STARTING_STATE.md` |
 | 0.2 Environment and checks | Accepted (owner, 2026-11-19) | merged to `main` | GitHub Actions run 44612564972 (all checks pass) |
-| 0.3 Data handling and secrets | In progress | branch `task/0.3-data-handling` | — |
+| 0.3 Data handling and secrets | READY FOR OWNER REVIEW | branch `task/0.3-data-handling` | GitHub Actions run 44631288593 (all checks pass) |
 
 ## Required update at every task end
 
