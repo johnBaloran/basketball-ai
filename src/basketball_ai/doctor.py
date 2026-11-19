@@ -66,14 +66,18 @@ def run_checks() -> list[Check]:
             sys.version_info[:2] >= MIN_PYTHON,
             f"{platform.python_version()} (need >= {'.'.join(map(str, MIN_PYTHON))})",
         ),
-        Check("runtime", True, f"{runtime_name()} ({platform.system()} {platform.machine()})", required=False),
+        Check(
+            "runtime", True, f"{runtime_name()} ({platform.system()} {platform.machine()})", required=False
+        ),
     ]
     for tool in REQUIRED_TOOLS:
         version = tool_version(tool)
         checks.append(Check(tool, version is not None, version or "not found on PATH"))
     gpu = gpu_info()
     checks.append(
-        Check("gpu", gpu is not None, gpu or "none (CPU only; in Colab pick Runtime > T4 GPU)", required=False)
+        Check(
+            "gpu", gpu is not None, gpu or "none (CPU only; in Colab pick Runtime > T4 GPU)", required=False
+        )
     )
     return checks
 
