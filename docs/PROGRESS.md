@@ -6,12 +6,35 @@
 ## Current status
 
 - **Overall phase:** Phase 0 — Project foundation and discovery
-- **Current task:** 0.3 — Establish safe video/data handling and secret management
-- **Task status:** READY FOR OWNER REVIEW
-- **Active branch:** `task/0.3-data-handling`
-- **Last accepted commit:** `877f2e4` (0.2 accepted, merged to `main`)
-- **Current blocker:** None.
-- **Next task:** 0.4 (inventory sample videos across gyms). Do not start until 0.3 is accepted. 0.4 needs owner inputs (YouTube channel and videos, Drive folder).
+- **Current task:** offline build (DEC-010): everything that needs no owner input, built in parallel
+- **Task status:** READY FOR OWNER REVIEW (0.3, 0.5 and the offline build); 0.4 waits on owner inputs
+- **Active branch:** `build/offline-foundations` (merged to `main` so Colab notebooks get it)
+- **Last accepted commit:** `877f2e4` (0.2)
+- **Current blocker:** footage. Every remaining step needs clips in Drive (0.4) or league decisions (`docs/EVENT_DEFINITIONS.md` §7).
+- **Next:** owner provides clips → run `bball-inventory` (0.4) → run `notebooks/01_baseline_detection.ipynb` on clips from each gym (1.3–1.7 evaluation).
+
+### Offline build report (DEC-010)
+Built and tested with **synthetic data only**. Nothing here claims accuracy on real footage.
+
+| Area | Plan task | Module | What it does |
+|---|---|---|---|
+| Contracts | DEC-007 | `contracts.py`, `schemas/*.json`, `bball-schemas` | Manifest, events and box score models (Recess field names, strict validation); JSON Schemas kept in sync by a test |
+| Event definitions | 0.5 | `docs/EVENT_DEFINITIONS.md` | Event types, status lifecycle, confidence, identity and box score rules; PROPOSED league choices plus owner questions |
+| Box score | 5.4 | `boxscore.py` | Confirmed events only; unattributed events count for the team; roster/team/relation checks; statistical invariants |
+| Identity | 3.3–3.5 | `identity.py` | Multi-frame jersey voting, roster constraint, shared-number handling, overlap conflicts, player→tracks registry |
+| Video | 1.1 | `video.py` | ffprobe metadata, streaming frames (constant memory), frame-accurate clip cutting (audio dropped by default) |
+| Inventory | 0.4 tooling | `inventory.py`, `bball-inventory` | Scans footage, stable video ids, gym from folder, date from file name, quality flags, per-gym summary |
+| Tracking | 1.5, 4.1 | `tracking.py` | Detector interface, IoU tracker baseline, ball holder, possession segments and changes |
+| Teams | 3.1 | `teams.py` | Torso colour, 2-means team split named from colour hints, referee rejection, per-track vote |
+| Court | 4.4 | `court.py` | Homography image→court feet, 2PT/3PT from shooter location with per-gym line config |
+| Possession events | 4.6–4.8 | `possession_events.py` | Pass, steal and rebound candidates from possession changes (always pending review) |
+| Evaluation | 2.4 | `evaluation.py` | Per-type precision/recall/F1 with time tolerance, team accuracy, player-attribution precision |
+| Pipeline | 1.6 | `pipeline.py`, `bball-run`, `detectors.py` | Frames → detector → tracker → possession; writes tracks.jsonl, possession.json, annotated.mp4; YOLO adapter (`cv` extra) |
+| Colab | 1.3 | `notebooks/01_baseline_detection.ipynb` | Runs the pipeline with pretrained YOLO on a Drive clip and shows the result |
+
+- **Evidence:** GitHub Actions run 44692434658 (CPython 3.12.16, real ffmpeg on synthetic test video): privacy guard ok; `ruff format --check` "50 files already formatted"; `ruff check` "All checks passed!"; `mypy` strict "Success: no issues found in 32 source files"; `pytest` "87 passed".
+- **Not tested:** anything on real footage; the YOLO adapter and both Colab notebooks (they need a GPU session and clips); shot detection (needs a hoop/ball model trained on our footage).
+- **Not built (needs owner input or footage):** shot attempt/make detection, jersey OCR model, court keypoint model, fine-tuning, the review UI and league-app integration.
 
 ### Task 0.3 report
 - **Implemented:**
@@ -86,6 +109,7 @@ Only add tasks here; do not implement them until they become the single current 
 | 0.1 Starting state | Accepted (owner, 2026-11-17) | `42609ef` | `docs/STARTING_STATE.md` |
 | 0.2 Environment and checks | Accepted (owner, 2026-11-19) | merged to `main` | GitHub Actions run 44612564972 (all checks pass) |
 | 0.3 Data handling and secrets | READY FOR OWNER REVIEW | branch `task/0.3-data-handling` | GitHub Actions run 44631288593 (all checks pass) |
+| Offline build (DEC-010) | READY FOR OWNER REVIEW | `build/offline-foundations` | GitHub Actions run 44692434658 (87 tests pass) |
 
 ## Required update at every task end
 

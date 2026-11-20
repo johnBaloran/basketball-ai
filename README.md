@@ -56,3 +56,14 @@ Every session: **Runtime > Change runtime type > T4 GPU**, then **Runtime > Run 
 **After cloning, run `./scripts/install-hooks.sh`** so the pre-commit privacy guard blocks video, frames, data files and secrets (the repo is public; see `docs/DATA_HANDLING.md`).
 
 Private data stays out of git: clips, datasets and model weights live in Google Drive (`BBALL_DATA_DIR`; see `.env.example`). `.gitignore` blocks video, weights and `.env` files.
+
+## What's built (synthetic-tested; see `docs/PROGRESS.md`)
+
+| Command | What it does |
+|---|---|
+| `bball-inventory [folder]` | Inventory footage in `BBALL_DATA_DIR/raw` (metadata, gym, date, quality flags) |
+| `bball-run manifest.json` | Baseline pipeline on one clip: detect, track, possession, annotated video |
+| `bball-schemas` | Regenerate `schemas/*.json` after changing `contracts.py` |
+| `bball-doctor` | Runtime check |
+
+Data formats: `schemas/manifest-0.1.json` (input), `schemas/events-0.1.json` and `schemas/boxscore-0.1.json` (output). Definitions: `docs/EVENT_DEFINITIONS.md`.
