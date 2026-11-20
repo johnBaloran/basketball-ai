@@ -65,7 +65,7 @@ def resolve_tracks(
 def _resolve_one(
     track_id: str,
     obs: list[JerseyObservation],
-    roster: dict[tuple[str, int | None], str],
+    roster: dict[tuple[str, int], str],
     cfg: IdentityConfig,
 ) -> TrackIdentity:
     first, last = min(o.frame for o in obs), max(o.frame for o in obs)
