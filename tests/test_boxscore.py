@@ -1,7 +1,7 @@
 import pytest
 
-from basketball_ai.contracts import Event, TeamBox
 from basketball_ai.boxscore import check_invariants, compute_box_score, validate_events
+from basketball_ai.contracts import Event, TeamBox
 from tests.conftest import AWAY, HOME, ev, events_file, make_manifest
 
 
@@ -46,9 +46,15 @@ def test_points_rebounds_assists_and_unattributed_scores() -> None:
         ([ev("s", "fg2_made", HOME, "h4"), ev("a", "assist", HOME, "h4", related="s")], "own basket"),
         ([ev("s", "fg2_made", HOME, "h4"), ev("a", "assist", AWAY, "a7", related="s")], "shooting team"),
         ([ev("s", "fg2_missed", HOME, "h4"), ev("b", "block", HOME, "h7", related="s")], "defending team"),
-        ([ev("s", "fg3_missed", HOME, "h4"), ev("r", "rebound_defensive", HOME, "h7", related="s")], "defending team"),
         (
-            [ev("s", "fg2_made", HOME, "h4", status="pending_review"), ev("a", "assist", HOME, "h7", related="s")],
+            [ev("s", "fg3_missed", HOME, "h4"), ev("r", "rebound_defensive", HOME, "h7", related="s")],
+            "defending team",
+        ),
+        (
+            [
+                ev("s", "fg2_made", HOME, "h4", status="pending_review"),
+                ev("a", "assist", HOME, "h7", related="s"),
+            ],
             "isn't confirmed",
         ),
     ],

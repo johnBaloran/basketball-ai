@@ -20,7 +20,10 @@ def test_valid_manifest_round_trips() -> None:
     ("override", "message"),
     [
         ({"roster": [{"teamId": "nope", "playerId": "x"}]}, "isn't in this game"),
-        ({"roster": [{"teamId": HOME, "playerId": "x"}, {"teamId": AWAY, "playerId": "x"}]}, "more than once"),
+        (
+            {"roster": [{"teamId": HOME, "playerId": "x"}, {"teamId": AWAY, "playerId": "x"}]},
+            "more than once",
+        ),
         (
             {
                 "roster": [

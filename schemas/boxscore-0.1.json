@@ -1,0 +1,178 @@
+{
+  "$defs": {
+    "PlayerBox": {
+      "additionalProperties": false,
+      "properties": {
+        "playerId": {
+          "title": "Playerid",
+          "type": "string"
+        },
+        "stats": {
+          "$ref": "#/$defs/StatLine"
+        },
+        "teamId": {
+          "title": "Teamid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "playerId",
+        "teamId",
+        "stats"
+      ],
+      "title": "PlayerBox",
+      "type": "object"
+    },
+    "StatLine": {
+      "additionalProperties": false,
+      "properties": {
+        "ast": {
+          "default": 0,
+          "title": "Ast",
+          "type": "integer"
+        },
+        "blk": {
+          "default": 0,
+          "title": "Blk",
+          "type": "integer"
+        },
+        "dreb": {
+          "default": 0,
+          "title": "Dreb",
+          "type": "integer"
+        },
+        "fg2a": {
+          "default": 0,
+          "title": "Fg2A",
+          "type": "integer"
+        },
+        "fg2m": {
+          "default": 0,
+          "title": "Fg2M",
+          "type": "integer"
+        },
+        "fg3a": {
+          "default": 0,
+          "title": "Fg3A",
+          "type": "integer"
+        },
+        "fg3m": {
+          "default": 0,
+          "title": "Fg3M",
+          "type": "integer"
+        },
+        "fga": {
+          "default": 0,
+          "title": "Fga",
+          "type": "integer"
+        },
+        "fgm": {
+          "default": 0,
+          "title": "Fgm",
+          "type": "integer"
+        },
+        "fta": {
+          "default": 0,
+          "title": "Fta",
+          "type": "integer"
+        },
+        "ftm": {
+          "default": 0,
+          "title": "Ftm",
+          "type": "integer"
+        },
+        "oreb": {
+          "default": 0,
+          "title": "Oreb",
+          "type": "integer"
+        },
+        "pts": {
+          "default": 0,
+          "title": "Pts",
+          "type": "integer"
+        },
+        "reb": {
+          "default": 0,
+          "title": "Reb",
+          "type": "integer"
+        },
+        "stl": {
+          "default": 0,
+          "title": "Stl",
+          "type": "integer"
+        }
+      },
+      "title": "StatLine",
+      "type": "object"
+    },
+    "TeamBox": {
+      "additionalProperties": false,
+      "properties": {
+        "stats": {
+          "$ref": "#/$defs/StatLine",
+          "description": "All confirmed events for the team, including unattributed ones"
+        },
+        "teamId": {
+          "title": "Teamid",
+          "type": "string"
+        },
+        "unattributed": {
+          "$ref": "#/$defs/StatLine",
+          "description": "Confirmed events whose player is unknown"
+        }
+      },
+      "required": [
+        "teamId",
+        "stats",
+        "unattributed"
+      ],
+      "title": "TeamBox",
+      "type": "object"
+    }
+  },
+  "$id": "https://github.com/johnBaloran/basketball-ai/schemas/boxscore-0.1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "countedEventIds": {
+      "description": "Confirmed events included, for audit",
+      "items": {
+        "type": "string"
+      },
+      "title": "Countedeventids",
+      "type": "array"
+    },
+    "gameId": {
+      "title": "Gameid",
+      "type": "string"
+    },
+    "players": {
+      "items": {
+        "$ref": "#/$defs/PlayerBox"
+      },
+      "title": "Players",
+      "type": "array"
+    },
+    "schemaVersion": {
+      "const": "0.1",
+      "default": "0.1",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "teams": {
+      "items": {
+        "$ref": "#/$defs/TeamBox"
+      },
+      "title": "Teams",
+      "type": "array"
+    }
+  },
+  "required": [
+    "gameId",
+    "players",
+    "teams",
+    "countedEventIds"
+  ],
+  "title": "BoxScore",
+  "type": "object"
+}

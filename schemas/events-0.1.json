@@ -1,0 +1,266 @@
+{
+  "$defs": {
+    "CourtPoint": {
+      "additionalProperties": false,
+      "description": "Court coordinates in feet: x along the length (0 = left baseline), y across (0 = near sideline).",
+      "properties": {
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "CourtPoint",
+      "type": "object"
+    },
+    "Event": {
+      "additionalProperties": false,
+      "properties": {
+        "courtCoordinates": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CourtPoint"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "eventConfidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Eventconfidence",
+          "type": "number"
+        },
+        "eventId": {
+          "description": "Stable id: retries and re-imports must not double count",
+          "minLength": 1,
+          "title": "Eventid",
+          "type": "string"
+        },
+        "eventType": {
+          "enum": [
+            "fg2_made",
+            "fg2_missed",
+            "fg3_made",
+            "fg3_missed",
+            "ft_made",
+            "ft_missed",
+            "rebound_offensive",
+            "rebound_defensive",
+            "assist",
+            "steal",
+            "block"
+          ],
+          "title": "Eventtype",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/Evidence"
+        },
+        "gameId": {
+          "minLength": 1,
+          "title": "Gameid",
+          "type": "string"
+        },
+        "identityConfidence": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Identityconfidence"
+        },
+        "playerId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "null when identity is uncertain",
+          "title": "Playerid"
+        },
+        "relatedEventId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "assist -> the made field goal; rebound/block -> the missed shot",
+          "title": "Relatedeventid"
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "pending_review",
+            "confirmed",
+            "rejected",
+            "unresolved"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "teamId": {
+          "minLength": 1,
+          "title": "Teamid",
+          "type": "string"
+        },
+        "timestampSeconds": {
+          "minimum": 0,
+          "title": "Timestampseconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "eventId",
+        "gameId",
+        "eventType",
+        "timestampSeconds",
+        "teamId",
+        "eventConfidence",
+        "status"
+      ],
+      "title": "Event",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "clipRef": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Clipref"
+        },
+        "endFrame": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Endframe"
+        },
+        "modelVersion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Modelversion"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        },
+        "startFrame": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Startframe"
+        },
+        "trackIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Trackids",
+          "type": "array"
+        }
+      },
+      "title": "Evidence",
+      "type": "object"
+    }
+  },
+  "$id": "https://github.com/johnBaloran/basketball-ai/schemas/events-0.1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "events": {
+      "items": {
+        "$ref": "#/$defs/Event"
+      },
+      "title": "Events",
+      "type": "array"
+    },
+    "gameId": {
+      "minLength": 1,
+      "title": "Gameid",
+      "type": "string"
+    },
+    "modelVersion": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Modelversion"
+    },
+    "schemaVersion": {
+      "const": "0.1",
+      "default": "0.1",
+      "title": "Schemaversion",
+      "type": "string"
+    }
+  },
+  "required": [
+    "gameId",
+    "events"
+  ],
+  "title": "EventsFile",
+  "type": "object"
+}

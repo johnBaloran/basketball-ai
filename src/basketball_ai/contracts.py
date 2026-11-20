@@ -41,7 +41,9 @@ EVENT_TYPES: tuple[EventType, ...] = (
     "steal",
     "block",
 )
-SHOT_TYPES: frozenset[str] = frozenset({"fg2_made", "fg2_missed", "fg3_made", "fg3_missed", "ft_made", "ft_missed"})
+SHOT_TYPES: frozenset[str] = frozenset(
+    {"fg2_made", "fg2_missed", "fg3_made", "fg3_missed", "ft_made", "ft_missed"}
+)
 MADE_FIELD_GOALS: frozenset[str] = frozenset({"fg2_made", "fg3_made"})
 MISSED_SHOTS: frozenset[str] = frozenset({"fg2_missed", "fg3_missed", "ft_missed"})
 MISSED_FIELD_GOALS: frozenset[str] = frozenset({"fg2_missed", "fg3_missed"})
@@ -78,7 +80,9 @@ class _Model(BaseModel):
 class TeamRef(_Model):
     id: str = Field(min_length=1)
     name: str = Field(min_length=1)
-    colorHint: str | None = Field(default=None, description='Jersey colour words, e.g. "white" or "dark blue"')
+    colorHint: str | None = Field(
+        default=None, description='Jersey colour words, e.g. "white" or "dark blue"'
+    )
 
 
 class RosterEntry(_Model):
@@ -119,7 +123,9 @@ class Manifest(_Model):
         seen_numbers: set[tuple[str, int]] = set()
         for r in self.roster:
             if r.teamId not in teams:
-                raise ValueError(f"roster player {r.playerId} has teamId {r.teamId}, which isn't in this game")
+                raise ValueError(
+                    f"roster player {r.playerId} has teamId {r.teamId}, which isn't in this game"
+                )
             if r.playerId in seen_players:
                 raise ValueError(f"player {r.playerId} appears more than once in the roster")
             seen_players.add(r.playerId)

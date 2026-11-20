@@ -129,7 +129,8 @@ def compute_box_score(events: EventsFile, manifest: Manifest) -> BoxScore:
             if r.playerId in players and r.playerId in team_of
         ],
         teams=[
-            TeamBox(teamId=t, stats=teams[t].line(), unattributed=unattributed[t].line()) for t in manifest.team_ids()
+            TeamBox(teamId=t, stats=teams[t].line(), unattributed=unattributed[t].line())
+            for t in manifest.team_ids()
         ],
         countedEventIds=counted,
     )

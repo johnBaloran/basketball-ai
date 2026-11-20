@@ -1,0 +1,186 @@
+{
+  "$defs": {
+    "RosterEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "displayName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Displayname"
+        },
+        "jerseyNumber": {
+          "anyOf": [
+            {
+              "maximum": 99,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Jerseynumber"
+        },
+        "playerId": {
+          "description": "Recess userId (or a walk-in id)",
+          "minLength": 1,
+          "title": "Playerid",
+          "type": "string"
+        },
+        "teamId": {
+          "minLength": 1,
+          "title": "Teamid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "teamId",
+        "playerId"
+      ],
+      "title": "RosterEntry",
+      "type": "object"
+    },
+    "TeamRef": {
+      "additionalProperties": false,
+      "properties": {
+        "colorHint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Jersey colour words, e.g. \"white\" or \"dark blue\"",
+          "title": "Colorhint"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "TeamRef",
+      "type": "object"
+    },
+    "VideoRef": {
+      "additionalProperties": false,
+      "properties": {
+        "endSeconds": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Endseconds"
+        },
+        "source": {
+          "description": "Path relative to BBALL_DATA_DIR, or a storage reference",
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "startSeconds": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Startseconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "VideoRef",
+      "type": "object"
+    }
+  },
+  "$id": "https://github.com/johnBaloran/basketball-ai/schemas/manifest-0.1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "awayTeam": {
+      "$ref": "#/$defs/TeamRef"
+    },
+    "court": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Court"
+    },
+    "gameId": {
+      "minLength": 1,
+      "title": "Gameid",
+      "type": "string"
+    },
+    "gymId": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Gymid"
+    },
+    "homeTeam": {
+      "$ref": "#/$defs/TeamRef"
+    },
+    "roster": {
+      "items": {
+        "$ref": "#/$defs/RosterEntry"
+      },
+      "title": "Roster",
+      "type": "array"
+    },
+    "schemaVersion": {
+      "const": "0.1",
+      "default": "0.1",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "video": {
+      "$ref": "#/$defs/VideoRef"
+    }
+  },
+  "required": [
+    "gameId",
+    "homeTeam",
+    "awayTeam",
+    "roster",
+    "video"
+  ],
+  "title": "Manifest",
+  "type": "object"
+}

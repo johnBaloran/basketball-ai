@@ -70,7 +70,9 @@ def _resolve_one(
 ) -> TrackIdentity:
     first, last = min(o.frame for o in obs), max(o.frame for o in obs)
 
-    def unresolved(reason: str, team: str | None = None, number: int | None = None, n: int = 0) -> TrackIdentity:
+    def unresolved(
+        reason: str, team: str | None = None, number: int | None = None, n: int = 0
+    ) -> TrackIdentity:
         return TrackIdentity(track_id, "unresolved", None, team, number, 0.0, n, first, last, reason)
 
     team = _team_vote(obs, cfg.min_team_share)
@@ -85,7 +87,9 @@ def _resolve_one(
     number, weight = max(votes.items(), key=lambda kv: kv[1])
     share = weight / sum(votes.values())
     if share < cfg.min_vote_share:
-        return unresolved(f"readings disagree (#{number} has {share:.0%} of votes)", team, None, len(readings))
+        return unresolved(
+            f"readings disagree (#{number} has {share:.0%} of votes)", team, None, len(readings)
+        )
 
     if team is not None:
         player = roster.get((team, number))
@@ -132,7 +136,11 @@ def _mark_conflicts(ids: dict[str, TrackIdentity]) -> dict[str, TrackIdentity]:
     out = dict(ids)
     for player, tracks in by_player.items():
         for a in tracks:
-            clash = [b for b in tracks if b is not a and a.firstFrame <= b.lastFrame and b.firstFrame <= a.lastFrame]
+            clash = [
+                b
+                for b in tracks
+                if b is not a and a.firstFrame <= b.lastFrame and b.firstFrame <= a.lastFrame
+            ]
             if clash:
                 others = ", ".join(sorted(b.trackId for b in clash))
                 out[a.trackId] = TrackIdentity(

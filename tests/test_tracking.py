@@ -18,8 +18,12 @@ def test_box_geometry() -> None:
 
 def test_tracker_keeps_ids_while_objects_move() -> None:
     tr = IouTracker()
-    first = tr.update([Detection("player", Box(0, 0, 10, 20), 0.9), Detection("ball", Box(50, 50, 54, 54), 0.8)])
-    moved = tr.update([Detection("player", Box(1, 0, 11, 20), 0.9), Detection("ball", Box(51, 50, 55, 54), 0.8)])
+    first = tr.update(
+        [Detection("player", Box(0, 0, 10, 20), 0.9), Detection("ball", Box(50, 50, 54, 54), 0.8)]
+    )
+    moved = tr.update(
+        [Detection("player", Box(1, 0, 11, 20), 0.9), Detection("ball", Box(51, 50, 55, 54), 0.8)]
+    )
     assert {t.trackId for t in first} == {t.trackId for t in moved}
 
 

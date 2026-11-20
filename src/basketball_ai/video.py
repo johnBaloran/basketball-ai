@@ -47,7 +47,16 @@ def _tool(name: str) -> str:
 def probe(path: str | Path) -> VideoInfo:
     """Resolution, frame rate, duration, codec and bitrate of a video file."""
     out = subprocess.run(
-        [_tool("ffprobe"), "-v", "error", "-print_format", "json", "-show_streams", "-show_format", str(path)],
+        [
+            _tool("ffprobe"),
+            "-v",
+            "error",
+            "-print_format",
+            "json",
+            "-show_streams",
+            "-show_format",
+            str(path),
+        ],
         capture_output=True,
         text=True,
         check=False,

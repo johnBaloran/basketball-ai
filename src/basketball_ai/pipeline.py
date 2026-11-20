@@ -35,7 +35,11 @@ from basketball_ai.tracking import (
 )
 from basketball_ai.video import Frame, VideoInfo, iter_frames, probe
 
-COLORS: dict[str, tuple[int, int, int]] = {"player": (0, 200, 255), "ball": (255, 140, 0), "hoop": (255, 0, 200)}
+COLORS: dict[str, tuple[int, int, int]] = {
+    "player": (0, 200, 255),
+    "ball": (255, 140, 0),
+    "hoop": (255, 0, 200),
+}
 
 
 @dataclass(frozen=True)
@@ -123,7 +127,12 @@ def run_clip(
                     "frame": item.index,
                     "t": item.timestampSeconds,
                     "tracks": [
-                        {"id": b.trackId, "label": b.label, "box": asdict(b.box), "conf": round(b.confidence, 3)}
+                        {
+                            "id": b.trackId,
+                            "label": b.label,
+                            "box": asdict(b.box),
+                            "conf": round(b.confidence, 3),
+                        }
                         for b in boxes
                     ],
                 }
@@ -141,7 +150,11 @@ def run_clip(
         "gameId": manifest.gameId,
         "note": "frames are source frame numbers within the clip range; holder = temporary track id",
         "segments": [
-            {"trackId": s.trackId, "startFrame": frame_numbers[s.startFrame], "endFrame": frame_numbers[s.endFrame]}
+            {
+                "trackId": s.trackId,
+                "startFrame": frame_numbers[s.startFrame],
+                "endFrame": frame_numbers[s.endFrame],
+            }
             for s in segments
         ],
         "changes": [

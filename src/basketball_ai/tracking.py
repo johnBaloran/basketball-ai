@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
+from itertools import pairwise
 from typing import Literal, Protocol
 
 from basketball_ai.video import Frame
@@ -125,7 +126,9 @@ class PossessionSegment:
         return self.endFrame - self.startFrame + 1
 
 
-def holder_in_frame(players: Iterable[TrackedBox], ball: TrackedBox | None, reach: float = 0.15) -> str | None:
+def holder_in_frame(
+    players: Iterable[TrackedBox], ball: TrackedBox | None, reach: float = 0.15
+) -> str | None:
     """The player whose (slightly expanded) box holds the ball centre; the closest one if several."""
     if ball is None:
         return None
@@ -157,6 +160,8 @@ def possession_segments(holders: Sequence[str | None], min_frames: int = 5) -> l
     return segments
 
 
-def possession_changes(segments: Sequence[PossessionSegment]) -> list[tuple[PossessionSegment, PossessionSegment]]:
+def possession_changes(
+    segments: Sequence[PossessionSegment],
+) -> list[tuple[PossessionSegment, PossessionSegment]]:
     """Consecutive segments with different holders: passes, steals or rebounds, classified downstream."""
-    return [(a, b) for a, b in zip(segments, segments[1:], strict=False) if a.trackId != b.trackId]
+    return [(a, b) for a, b in pairwise(segments) if a.trackId != b.trackId]
