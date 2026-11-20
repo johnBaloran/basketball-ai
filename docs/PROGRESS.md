@@ -31,7 +31,13 @@ Built and tested with **synthetic data only**. Nothing here claims accuracy on r
 | Evaluation | 2.4 | `evaluation.py` | Per-type precision/recall/F1 with time tolerance, team accuracy, player-attribution precision |
 | Pipeline | 1.6 | `pipeline.py`, `bball-run`, `detectors.py` | Frames → detector → tracker → possession; writes tracks.jsonl, possession.json, annotated.mp4; YOLO adapter (`cv` extra) |
 | Colab | 1.3 | `notebooks/01_baseline_detection.ipynb` | Runs the pipeline with pretrained YOLO on a Drive clip and shows the result |
+| Frame picker | 2.1 | `sampling.py`, `bball-sample-frames` | About 1 varied frame/s per clip, near-duplicates skipped, YOLO pre-labels as a CVAT "YOLO 1.1" zip, frames.json with gym/game/time |
+| Dataset builder | 2.2–2.3 | `dataset.py`, `bball-build-dataset` | Labels → YOLO dataset split by whole games (deterministic), label quality checks, data.yaml plus per-gym test sets, report |
+| Training | 2.5 | `training.py`, `bball-train`, `notebooks/02_train_detector.ipynb` | Fine-tune with checkpoints every epoch and resume after disconnects; per-class P/R/mAP on the test split, overall and per gym |
+| Jersey crops | 3.2 | `crops.py`, `bball-crops` | Upper-body crops of player tracks from a pipeline run, size-filtered, indexed for number labelling |
+| Labelling rules | 2.1 | `docs/LABELLING.md` | Box rules per class, workflow, how much to label |
 
+- **Evidence (training tools):** GitHub Actions run 44695222788: `ruff` ok, `mypy` strict "no issues found in 43 source files", `pytest` "102 passed". Training and YOLO pre-labelling themselves need a GPU and weren't run.
 - **Evidence:** GitHub Actions run 44692434658 (CPython 3.12.16, real ffmpeg on synthetic test video): privacy guard ok; `ruff format --check` "50 files already formatted"; `ruff check` "All checks passed!"; `mypy` strict "Success: no issues found in 32 source files"; `pytest` "87 passed".
 - **Not tested:** anything on real footage; the YOLO adapter and both Colab notebooks (they need a GPU session and clips); shot detection (needs a hoop/ball model trained on our footage).
 - **Not built (needs owner input or footage):** shot attempt/make detection, jersey OCR model, court keypoint model, fine-tuning, the review UI and league-app integration.

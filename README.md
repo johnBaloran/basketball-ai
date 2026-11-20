@@ -64,6 +64,10 @@ Private data stays out of git: clips, datasets and model weights live in Google 
 | `bball-inventory [folder]` | Inventory footage in `BBALL_DATA_DIR/raw` (metadata, gym, date, quality flags) |
 | `bball-run manifest.json` | Baseline pipeline on one clip: detect, track, possession, annotated video |
 | `bball-schemas` | Regenerate `schemas/*.json` after changing `contracts.py` |
+| `bball-sample-frames --prelabel yolo` | Pick varied frames from clips to label, with pre-filled boxes |
+| `bball-build-dataset <batch> --labels <export> --name <ds>` | Build a YOLO dataset split by whole games, with quality checks |
+| `bball-train <ds>` | Fine-tune YOLO (resumes after Colab disconnects) and evaluate per gym |
+| `bball-crops <gameId>` | Collect jersey crops from a pipeline run for number labelling |
 | `bball-doctor` | Runtime check |
 
 Data formats: `schemas/manifest-0.1.json` (input), `schemas/events-0.1.json` and `schemas/boxscore-0.1.json` (output). Definitions: `docs/EVENT_DEFINITIONS.md`.
