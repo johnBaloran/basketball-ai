@@ -24,5 +24,7 @@ def test_two_colour_groups_are_named_from_hints() -> None:
 
 
 def test_track_team_is_a_vote() -> None:
-    teams = vote_track_teams({"t1": ["home", "home", "home", None, "away"], "t2": ["home", "away"], "t3": [None]})
+    teams = vote_track_teams(
+        {"t1": ["home", "home", "home", None, "away"], "t2": ["home", "away"], "t3": [None]}
+    )
     assert teams == {"t1": "home", "t2": None, "t3": None}

@@ -38,14 +38,27 @@ def classify_changes(
             continue
         ta, tb = track_teams.get(a.trackId), track_teams.get(b.trackId)
         if ta is None or tb is None:
-            out.append(PossessionChange(a.trackId, b.trackId, b.startFrame, "unknown", "team unknown for a track"))
+            out.append(
+                PossessionChange(a.trackId, b.trackId, b.startFrame, "unknown", "team unknown for a track")
+            )
             continue
         if ta == tb:
             out.append(PossessionChange(a.trackId, b.trackId, b.startFrame, "pass", "same team"))
             continue
-        after_miss = any(a.startFrame <= f <= b.startFrame and b.startFrame - f <= rebound_window for f in missed_shot_frames)
+        after_miss = any(
+            a.startFrame <= f <= b.startFrame and b.startFrame - f <= rebound_window
+            for f in missed_shot_frames
+        )
         if after_miss:
-            out.append(PossessionChange(a.trackId, b.trackId, b.startFrame, "rebound_candidate", "other team after a missed shot"))
+            out.append(
+                PossessionChange(
+                    a.trackId, b.trackId, b.startFrame, "rebound_candidate", "other team after a missed shot"
+                )
+            )
         else:
-            out.append(PossessionChange(a.trackId, b.trackId, b.startFrame, "steal_candidate", "other team, no shot before"))
+            out.append(
+                PossessionChange(
+                    a.trackId, b.trackId, b.startFrame, "steal_candidate", "other team, no shot before"
+                )
+            )
     return out

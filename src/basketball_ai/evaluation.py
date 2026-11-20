@@ -56,7 +56,9 @@ class EvaluationReport:
         return self.playerCorrect / self.playerAttributed if self.playerAttributed else 0.0
 
 
-def evaluate(predicted: Sequence[Event], truth: Sequence[Event], tolerance_seconds: float = 1.0) -> EvaluationReport:
+def evaluate(
+    predicted: Sequence[Event], truth: Sequence[Event], tolerance_seconds: float = 1.0
+) -> EvaluationReport:
     preds = [e for e in predicted if e.status not in ("rejected",)]
     by_type_pred: dict[str, list[Event]] = defaultdict(list)
     by_type_true: dict[str, list[Event]] = defaultdict(list)

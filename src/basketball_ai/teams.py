@@ -86,7 +86,10 @@ def fit_team_model(
     if len(colors) < 2:
         raise ValueError("need at least two player colours to split teams")
     a, b = _kmeans2(np.stack(colors))
-    hint_rgb = [np.array(COLOR_WORDS[h.lower()], dtype=np.float64) if h and h.lower() in COLOR_WORDS else None for h in hints]
+    hint_rgb = [
+        np.array(COLOR_WORDS[h.lower()], dtype=np.float64) if h and h.lower() in COLOR_WORDS else None
+        for h in hints
+    ]
     ha, hb = hint_rgb
     if ha is not None and hb is not None:
         straight = np.linalg.norm(a - ha) + np.linalg.norm(b - hb)
