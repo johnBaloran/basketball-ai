@@ -12,7 +12,8 @@ def _row(frame: int, *tracks: tuple[str, str, Box]) -> dict[str, object]:
     return {
         "frame": frame,
         "tracks": [
-            {"id": i, "label": label, "box": {"x1": b.x1, "y1": b.y1, "x2": b.x2, "y2": b.y2}} for i, label, b in tracks
+            {"id": i, "label": label, "box": {"x1": b.x1, "y1": b.y1, "x2": b.x2, "y2": b.y2}}
+            for i, label, b in tracks
         ],
     }
 

@@ -95,7 +95,10 @@ def evaluate(weights: Path, dataset: Path, imgsz: int) -> dict[str, Any]:  # pra
     from ultralytics import YOLO
 
     model = YOLO(str(weights))
-    report: dict[str, Any] = {"weights": str(weights), "evaluatedAt": datetime.now(UTC).isoformat(timespec="seconds")}
+    report: dict[str, Any] = {
+        "weights": str(weights),
+        "evaluatedAt": datetime.now(UTC).isoformat(timespec="seconds"),
+    }
     yamls = {"all gyms": dataset / "data.yaml"} | {
         p.stem.removeprefix("data_test_"): p for p in sorted(dataset.glob("data_test_*.yaml"))
     }
@@ -118,7 +121,13 @@ def main(argv: list[str] | None = None) -> int:  # pragma: no cover - needs a GP
     from ultralytics import YOLO
 
     plan = plan_training(
-        data_path("datasets", args.dataset), data_path("models"), args.run, args.model, args.epochs, args.imgsz, args.batch
+        data_path("datasets", args.dataset),
+        data_path("models"),
+        args.run,
+        args.model,
+        args.epochs,
+        args.imgsz,
+        args.batch,
     )
     if not args.evaluate_only:
         if plan.resume_from is not None:

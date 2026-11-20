@@ -75,7 +75,9 @@ def build(batch_dirs: list[Path], labels_dir: Path, out: Path) -> BuildReport:
     for batch in batch_dirs:
         meta = json.loads((batch / "frames.json").read_text(encoding="utf-8"))
         if tuple(meta.get("classes", CLASSES)) != CLASSES:
-            report.problems.append(f"{batch}: frames were picked for classes {meta.get('classes')}, expected {CLASSES}")
+            report.problems.append(
+                f"{batch}: frames were picked for classes {meta.get('classes')}, expected {CLASSES}"
+            )
         for f in meta["frames"]:
             frames.append({**f, "_dir": str(batch / "images")})
     splits = split_games(sorted({str(f["game"]) for f in frames}))
@@ -89,7 +91,9 @@ def build(batch_dirs: list[Path], labels_dir: Path, out: Path) -> BuildReport:
         stem = Path(name).stem
         label = _find_label(labels_dir, stem)
         if label is None:
-            report.problems.append(f"{name}: no label file (an image with no objects still needs an empty file)")
+            report.problems.append(
+                f"{name}: no label file (an image with no objects still needs an empty file)"
+            )
             continue
         boxes, issues = parse_label_file(label.read_text(encoding="utf-8"))
         if issues:
@@ -101,7 +105,9 @@ def build(batch_dirs: list[Path], labels_dir: Path, out: Path) -> BuildReport:
         img_out.parent.mkdir(parents=True, exist_ok=True)
         (out / "labels" / split).mkdir(parents=True, exist_ok=True)
         shutil.copyfile(Path(str(f["_dir"])) / name, img_out)
-        (out / "labels" / split / f"{stem}.txt").write_text("".join(f"{b.line()}\n" for b in boxes), encoding="utf-8")
+        (out / "labels" / split / f"{stem}.txt").write_text(
+            "".join(f"{b.line()}\n" for b in boxes), encoding="utf-8"
+        )
         lists[split].append(str(img_out))
         if split == "test":
             lists[f"test_{gym}"].append(str(img_out))
@@ -131,12 +137,18 @@ def build(batch_dirs: list[Path], labels_dir: Path, out: Path) -> BuildReport:
 def _write_yaml(path: Path, root: Path, train: str, val: str, test: str) -> None:
     names = "\n".join(f"  {i}: {c}" for i, c in enumerate(CLASSES))
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(f"path: {root}\ntrain: {train}\nval: {val}\ntest: {test}\nnames:\n{names}\n", encoding="utf-8")
+    path.write_text(
+        f"path: {root}\ntrain: {train}\nval: {val}\ntest: {test}\nnames:\n{names}\n", encoding="utf-8"
+    )
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="bball-build-dataset", description="Build a YOLO dataset split by games.")
-    parser.add_argument("batches", nargs="+", type=Path, help="frame-picker batch folders (images/ + frames.json)")
+    parser = argparse.ArgumentParser(
+        prog="bball-build-dataset", description="Build a YOLO dataset split by games."
+    )
+    parser.add_argument(
+        "batches", nargs="+", type=Path, help="frame-picker batch folders (images/ + frames.json)"
+    )
     parser.add_argument("--labels", type=Path, required=True, help="labelling tool's YOLO export folder")
     parser.add_argument("--name", required=True, help="dataset name, e.g. detector-v1")
     args = parser.parse_args(argv)

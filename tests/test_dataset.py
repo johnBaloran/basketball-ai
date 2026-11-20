@@ -13,8 +13,12 @@ def _batch(tmp: Path, games: dict[str, str], per_game: int = 2) -> Path:
         for i in range(per_game):
             name = f"{gym}__{game}_c__{i:08d}.jpg"
             (batch / "images" / name).write_bytes(b"jpg")
-            frames.append({"file": name, "gym": gym, "clip": f"{game}_c.mp4", "game": game, "timestampSeconds": i})
-    (batch / "frames.json").write_text(json.dumps({"classes": ["player", "ball", "hoop", "referee"], "frames": frames}))
+            frames.append(
+                {"file": name, "gym": gym, "clip": f"{game}_c.mp4", "game": game, "timestampSeconds": i}
+            )
+    (batch / "frames.json").write_text(
+        json.dumps({"classes": ["player", "ball", "hoop", "referee"], "frames": frames})
+    )
     return batch
 
 
@@ -32,7 +36,9 @@ def test_build_copies_by_split_and_writes_yaml_and_report(tmp_path: Path) -> Non
     labels = tmp_path / "export" / "obj_train_data"
     labels.mkdir(parents=True)
     for img in (batch / "images").iterdir():
-        (labels / f"{img.stem}.txt").write_text("0 0.5 0.5 0.1 0.3\n1 0.2 0.2 0.02 0.02\n2 0.9 0.2 0.05 0.05\n")
+        (labels / f"{img.stem}.txt").write_text(
+            "0 0.5 0.5 0.1 0.3\n1 0.2 0.2 0.02 0.02\n2 0.9 0.2 0.05 0.05\n"
+        )
     out = tmp_path / "datasets" / "v1"
     report = build([batch], tmp_path / "export", out)
     assert report.problems == []

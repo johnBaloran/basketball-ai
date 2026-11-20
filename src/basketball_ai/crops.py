@@ -39,7 +39,9 @@ def jersey_region(box: Box) -> Box:
     return Box(box.x1, box.y1 + 0.1 * h, box.x2, box.y1 + 0.6 * h)
 
 
-def select_crops(rows: list[dict[str, Any]], every: int, min_height: float) -> dict[int, list[tuple[str, Box]]]:
+def select_crops(
+    rows: list[dict[str, Any]], every: int, min_height: float
+) -> dict[int, list[tuple[str, Box]]]:
     """frame -> [(track, box)] to crop: each player track every `every` rows it appears in, big enough."""
     seen: dict[str, int] = {}
     picks: dict[int, list[tuple[str, Box]]] = {}
@@ -67,7 +69,12 @@ def crop(image: Frame, box: Box) -> Frame | None:
 
 
 def collect(
-    tracks_file: Path, video: Path, manifest: Manifest, out_dir: Path, every: int = 10, min_height: float = 120
+    tracks_file: Path,
+    video: Path,
+    manifest: Manifest,
+    out_dir: Path,
+    every: int = 10,
+    min_height: float = 120,
 ) -> list[Crop]:
     rows = [json.loads(line) for line in tracks_file.read_text(encoding="utf-8").splitlines() if line.strip()]
     picks = select_crops(rows, every, min_height)
@@ -90,7 +97,9 @@ def collect(
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="bball-crops", description="Collect jersey crops from a pipeline run.")
+    parser = argparse.ArgumentParser(
+        prog="bball-crops", description="Collect jersey crops from a pipeline run."
+    )
     parser.add_argument("game_id")
     parser.add_argument("--manifest", type=Path, help="default: outputs/<gameId>/manifest.json")
     parser.add_argument("--every", type=int, default=10)

@@ -25,6 +25,13 @@ def test_plan_needs_a_built_dataset(tmp_path: Path) -> None:
 
 def test_per_class_table() -> None:
     table = per_class_table(
-        {"names": {0: "player", 1: "ball"}, "ap_class_index": [0, 1], "p": [0.9, 0.5], "r": [0.8, 0.4], "ap50": [0.85, 0.3], "ap": [0.6, 0.1]}
+        {
+            "names": {0: "player", 1: "ball"},
+            "ap_class_index": [0, 1],
+            "p": [0.9, 0.5],
+            "r": [0.8, 0.4],
+            "ap50": [0.85, 0.3],
+            "ap": [0.6, 0.1],
+        }
     )
     assert table["ball"] == {"precision": 0.5, "recall": 0.4, "mAP50": 0.3, "mAP50_95": 0.1}
