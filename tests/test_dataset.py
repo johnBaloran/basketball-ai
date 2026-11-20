@@ -27,7 +27,7 @@ def test_split_is_by_game_and_stable() -> None:
     games = [f"2026-11-{d:02d}_g{d}" for d in range(1, 21)]
     splits = split_games(games)
     assert set(splits.values()) == {"train", "val", "test"}
-    assert split_games(games + ["2026-12-01_g99"])["2026-11-01_g1"] == splits["2026-11-01_g1"]
+    assert split_games([*games, "2026-12-01_g99"])["2026-11-01_g1"] == splits["2026-11-01_g1"]
 
 
 def test_build_copies_by_split_and_writes_yaml_and_report(tmp_path: Path) -> None:

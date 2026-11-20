@@ -1,4 +1,4 @@
-"""Fine-tune YOLO in Colab with resume, then evaluate on the untouched test split, overall and per gym (step 3).
+"""Fine-tune YOLO in Colab with resume, then evaluate on the untouched test split per gym (step 3).
 
     bball-train detector-v1                    # train (or resume) on BBALL_DATA_DIR/datasets/detector-v1
     bball-train detector-v1 --epochs 100 --imgsz 1280 --model yolo11s.pt
