@@ -40,6 +40,7 @@ basketball-ai-data/
   clips/      short clips cut from raw/ (per gym: clips/<gym-id>/...)
   frames/     extracted frames and crops
   labels/     annotation exports and review decisions
+  datasets/   training datasets built from labels (split by game)
   models/     trained weights and their configs
   outputs/    pipeline results (events JSON, box scores, annotated video)
 ```

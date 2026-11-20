@@ -12,7 +12,7 @@ ENV_VAR = "BBALL_DATA_DIR"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 # Standard layout inside the data folder (docs/DATA_HANDLING.md §3)
-SUBDIRS = ("raw", "clips", "frames", "labels", "models", "outputs")
+SUBDIRS = ("raw", "clips", "frames", "labels", "datasets", "models", "outputs")
 
 
 class DataDirError(RuntimeError):

@@ -104,6 +104,7 @@ def run_clip(
 ) -> RunResult:
     info = probe(video_path)
     out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "manifest.json").write_text(manifest.model_dump_json(indent=2) + "\n", encoding="utf-8")
     tracker = IouTracker()
     holders: list[str | None] = []
     frame_numbers: list[int] = []

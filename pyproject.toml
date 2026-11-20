@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
   "numpy>=1.26",
+  "pillow>=10.4",
   "pydantic>=2.9",
 ]
 
@@ -27,6 +28,10 @@ bball-doctor = "basketball_ai.doctor:main"
 bball-inventory = "basketball_ai.inventory:main"
 bball-run = "basketball_ai.pipeline:main"
 bball-schemas = "basketball_ai.schemas:main"
+bball-sample-frames = "basketball_ai.sampling:main"
+bball-build-dataset = "basketball_ai.dataset:main"
+bball-train = "basketball_ai.training:main"
+bball-crops = "basketball_ai.crops:main"
 
 [build-system]
 requires = ["hatchling>=1.25"]
