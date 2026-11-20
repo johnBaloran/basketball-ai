@@ -4,6 +4,8 @@ These rules apply to every AI coding agent working in this repository. They are 
 
 ## 1. One implementation task at a time
 
+> **Owner override (DEC-010, 2026-11-20):** work that needs no owner input may be built in parallel on one build branch. Evidence rules still apply.
+
 - Work on only the single task identified as `CURRENT TASK` in `docs/PROGRESS.md`.
 - Do not begin the next task, phase, feature, refactor, or cleanup until the current task is accepted by the project owner.
 - You may inspect related code and dependencies to understand the task, but do not bundle unrelated changes.

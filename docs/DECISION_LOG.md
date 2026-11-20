@@ -108,3 +108,11 @@ Record decisions that materially affect architecture, data, model selection, cos
 - **Reasoning/trade-offs:** Zero manual steps for code checks; Colab can open the repo without a token. Everything committed is world-readable, and making it private later doesn't recall copies already made.
 - **Consequences/migration:** **Nothing private is ever committed**: no video, frames, roster data, player names or personal data, which `.gitignore` already blocks for media and data folders. Commits use the GitHub noreply email (history rewritten 2026-11-19 so the personal email isn't exposed).
 - **Approver:** Owner (2026-11-19)
+
+### DEC-010 — Build all offline work in parallel (supersedes the one-task-at-a-time rule for now)
+- **Date:** 2026-11-20
+- **Status:** Accepted
+- **Context/problem:** AGENT_RULES §1 allows one implementation task at a time, each waiting for owner acceptance. Many tasks need nothing from the owner (no footage, no decisions), and waiting on each slowed progress.
+- **Decision:** The owner asked to "build everything that doesn't need manual side from me first; no need to do one task at a time". All work that can be built and tested with synthetic data proceeds together on branch `build/offline-foundations`. Tasks needing owner input (footage, league rules, approvals) wait.
+- **Consequences/migration:** Evidence rules (AGENT_RULES §3) still apply: everything is tested in CI with synthetic data, and nothing claims accuracy on real footage. League-policy choices made to unblock code are marked **proposed** in `docs/EVENT_DEFINITIONS.md` for owner review.
+- **Approver:** Owner (2026-11-20)

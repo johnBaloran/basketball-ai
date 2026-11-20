@@ -4,7 +4,16 @@ version = "0.0.1"
 description = "Basketball video analysis: detection, tracking, identity and events from game clips."
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+  "numpy>=1.26",
+  "pydantic>=2.9",
+]
+
+[project.optional-dependencies]
+# Detection models (Colab/Kaggle). Not installed in CI.
+cv = [
+  "ultralytics>=8.3",
+]
 
 [dependency-groups]
 dev = [
@@ -15,6 +24,9 @@ dev = [
 
 [project.scripts]
 bball-doctor = "basketball_ai.doctor:main"
+bball-inventory = "basketball_ai.inventory:main"
+bball-run = "basketball_ai.pipeline:main"
+bball-schemas = "basketball_ai.schemas:main"
 
 [build-system]
 requires = ["hatchling>=1.25"]
@@ -35,6 +47,11 @@ select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
 python_version = "3.12"
 strict = true
 files = ["src", "tests"]
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["ultralytics", "ultralytics.*"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -26,5 +26,24 @@ jobs:
           pip install -q -e . --group dev
       - name: Environment check
         run: bball-doctor
+      - name: Suggested fixes (formatting, safe lint fixes, regenerated schemas)
+        if: always()
+        run: |
+          bball-schemas
+          python -m ruff format . || true
+          python -m ruff check --fix . || true
+          git add -N schemas
+          git diff > suggested-fixes.patch
+          git reset -q
+          git checkout -- .
+          git clean -fdq -- schemas || true
+          wc -l suggested-fixes.patch
+      - name: Upload suggested fixes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: suggested-fixes
+          path: suggested-fixes.patch
+          if-no-files-found: ignore
       - name: Format, lint, types, tests
         run: bash scripts/check.sh
